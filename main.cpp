@@ -1,18 +1,18 @@
 #include "echoreplier.h"
 #include "qtquick2applicationviewer.h"
+#include "accountconfig.h"
 
 #include <iostream>
 #include <QtGui/QGuiApplication>
 #include <QQmlApplicationEngine>
 
 int main(int argc, char* argv[]) {
-    if(argc != 3) {
-        std::cout << "usage: sabber <JID> <password>" << std::endl;
-        return 1;
-    }
+    AccountConfig ac("default");
+    ac.load();
+    ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file
 
     QGuiApplication app(argc, argv);
-    EchoReplier replier(argv[1], argv[2]);
+    EchoReplier replier(ac.getJID().toUtf8().constData(), ac.getPassword().toUtf8().constData());
 
     QQmlApplicationEngine engine("qml/sabber/main.qml");
     return app.exec();
