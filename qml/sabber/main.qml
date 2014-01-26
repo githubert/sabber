@@ -1,16 +1,14 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.1
 
-Rectangle {
+ApplicationWindow {
     width: 360
     height: 360
+    visible: true
+
+    title: "Sabber – The Jabber Droolkit"
+
     Text {
-        text: qsTr("Sabber – The Jabber Droolkit")
-        anchors.centerIn: parent
-    }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
+        id: text
     }
 }
