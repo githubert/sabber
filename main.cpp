@@ -7,12 +7,12 @@
 #include <QQmlApplicationEngine>
 
 int main(int argc, char* argv[]) {
-    AccountConfig ac("default");
+    AccountConfig ac;
     ac.load();
     ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file
 
     QGuiApplication app(argc, argv);
-    EchoReplier replier(ac.getJID(), ac.getPassword());
+    EchoReplier replier(ac.jid(), ac.password());
 
     QQmlApplicationEngine engine("qml/sabber/main.qml");
     return app.exec();
