@@ -11,4 +11,11 @@ ApplicationWindow {
     Text {
         id: text
     }
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            Qt.quit();
+        }
+    }
 }
