@@ -14,7 +14,7 @@ using namespace gloox;
 
 class EchoReplier : public MessageSessionHandler, public MessageHandler, public QThread {
   public:
-    EchoReplier(const std::string& jid, const std::string& password);
+    EchoReplier(const QString& jid, const QString& password);
     ~EchoReplier();
     void run();
     void handleMessageSession(MessageSession* session);

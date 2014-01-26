@@ -1,6 +1,8 @@
 #include "echoreplier.h"
 
-EchoReplier::EchoReplier(const std::string& jid, const std::string& password) : client(std::unique_ptr<Client>(new Client(JID(jid), password))) {
+EchoReplier::EchoReplier(const QString& jid, const QString& password)
+                            : client(std::unique_ptr<Client>(new Client(JID(jid.toUtf8().constData()),
+                                                                        password.toUtf8().constData()))) {
     client->registerMessageSessionHandler(this, 0);
     client->setResource("sabber");
     this->start();
