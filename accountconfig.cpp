@@ -6,21 +6,23 @@ AccountConfig::AccountConfig(const QString& _name) : name(_name) {
 void AccountConfig::store() {
     QSettings settings("Sabber", "sabber");
 
-    settings.beginGroup("accounts");
-    settings.beginGroup(name);
-
-    settings.setValue("jid", _jid);
-    settings.setValue("password", _password);
+    settings.beginGroup("accounts"); {
+        settings.beginGroup(name); {
+            settings.setValue("jid", _jid);
+            settings.setValue("password", _password);
+        } settings.endGroup();
+    } settings.endGroup();
 }
 
 void AccountConfig::load() {
     QSettings settings("Sabber", "sabber");
 
-    settings.beginGroup("accounts");
-    settings.beginGroup(name);
-
-    _jid = settings.value("jid").toString();
-    _password = settings.value("password").toString();
+    settings.beginGroup("accounts"); {
+        settings.beginGroup(name); {
+            _jid = settings.value("jid").toString();
+            _password = settings.value("password").toString();
+        } settings.endGroup();
+    } settings.endGroup();
 }
 
 void AccountConfig::setJID(QString jid) {

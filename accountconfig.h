@@ -18,7 +18,7 @@ public:
     void setJID(QString jid);
 
 private:
-    const QString& name;
+    QString name;
     QString _jid;
     QString _password;
 };
