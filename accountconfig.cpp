@@ -1,28 +1,30 @@
 #include "accountconfig.h"
 
-AccountConfig::AccountConfig(const QString& _name) : name(_name) {
+AccountConfig::AccountConfig(const QString& _name) : name(_name), settings("Sabber", "sabber") {
 }
 
 void AccountConfig::store() {
-    QSettings settings("Sabber", "sabber");
-
-    settings.beginGroup("accounts"); {
-        settings.beginGroup(name); {
+    inGroup([&]() {
             settings.setValue("jid", _jid);
             settings.setValue("password", _password);
-        } settings.endGroup();
-    } settings.endGroup();
+        }, "accounts", name);
 }
 
 void AccountConfig::load() {
-    QSettings settings("Sabber", "sabber");
+    inGroup([&]() {
+                _jid = settings.value("jid").toString();
+                _password = settings.value("password").toString();
+            }, "accounts", name);
+}
 
-    settings.beginGroup("accounts"); {
-        settings.beginGroup(name); {
-            _jid = settings.value("jid").toString();
-            _password = settings.value("password").toString();
-        } settings.endGroup();
-    } settings.endGroup();
+template<typename T, typename... Args> void AccountConfig::inGroup(T function, QString groupName, Args... groupNames) {
+    settings.beginGroup(groupName);
+    inGroup(function, groupNames...);
+    settings.endGroup();
+}
+
+void AccountConfig::inGroup(std::function<void()> function) {
+    function();
 }
 
 void AccountConfig::setJID(QString jid) {

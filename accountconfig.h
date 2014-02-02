@@ -6,6 +6,8 @@
 #include <QSettings>
 #include <QString>
 
+#include <functional>
+
 class AccountConfig
 {
 public:
@@ -19,8 +21,12 @@ public:
 
 private:
     QString name;
+    QSettings settings;
     QString _jid;
     QString _password;
+
+    template<typename T, typename... Args> void inGroup(T function, QString groupName, Args... groupNames);
+    void inGroup(std::function<void()> function);
 };
 
 #endif // ACCOUNTCONFIG_H
