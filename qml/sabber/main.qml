@@ -8,8 +8,12 @@ ApplicationWindow {
 
     title: "Sabber – The Jabber Droolkit"
 
-    Text {
-        id: text
+    ListView {
+        model: log
+        height: parent.height
+        delegate: Text {
+            text: modelData
+        }
     }
 
     MouseArea {
