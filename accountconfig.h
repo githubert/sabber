@@ -8,9 +8,9 @@
 
 #include <functional>
 
-class AccountConfig
-{
-public:
+class AccountConfig {
+
+  public:
     AccountConfig(const QString& name = "default");
     void load();
     void store();
@@ -19,7 +19,7 @@ public:
     void setPassword(QString password);
     void setJID(QString jid);
 
-private:
+  private:
     QString name;
     QSettings settings;
     QString _jid;

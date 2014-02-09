@@ -12,9 +12,9 @@ AccountConfig::AccountConfig(const QString& _name) : name(_name), settings("Sabb
 
 void AccountConfig::store() {
     inGroup([&]() {
-            settings.setValue(JID_FIELD_NAME, _jid);
-            settings.setValue(PASSWORD_FIELD_NAME, _password);
-        }, "accounts", name);
+                settings.setValue(JID_FIELD_NAME, _jid);
+                settings.setValue(PASSWORD_FIELD_NAME, _password);
+            }, ACCOUNT_GROUP_NAME, name);
 }
 
 void AccountConfig::load() {
