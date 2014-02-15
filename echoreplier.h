@@ -1,31 +1,16 @@
 #ifndef ECHOREPLIER_H
 #define ECHOREPLIER_H
 
-#include <gloox/message.h>
-#include <gloox/client.h>
-#include <gloox/messagesessionhandler.h>
-#include <gloox/messagehandler.h>
-
 #include <QtCore>
 
-#include <memory>
+class EchoReplier : public QObject {
+    Q_OBJECT
 
-using namespace gloox;
+  signals:
+    void sendMessage(const QString& message);
 
-class EchoReplier : public MessageSessionHandler, public MessageHandler, public QThread {
-
-  public:
-    EchoReplier(const QString& jid, const QString& password);
-    ~EchoReplier();
-    void run();
-    void handleMessageSession(MessageSession* session);
-    void handleMessage(const Message& message, MessageSession* session);
-
-  private:
-    MessageSession* session;
-
-    void disposeCurrentSession();
-    const std::unique_ptr<Client> client;
+  public slots:
+    void messageReceived(const QString& message);
 };
 
 #endif // ECHOREPLIER_H

@@ -9,7 +9,10 @@ QML_IMPORT_PATH =
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     echoreplier.cpp \
-    accountconfig.cpp
+    accountconfig.cpp \
+    connection.cpp \
+    conversation.cpp \
+    conversationmanager.cpp
 
 # Installation path
 # target.path =
@@ -20,7 +23,10 @@ qtcAddDeployment()
 
 HEADERS += \
     echoreplier.h \
-    accountconfig.h
+    accountconfig.h \
+    connection.h \
+    conversation.h \
+    conversationmanager.h
 
 LIBS += -lgloox
 

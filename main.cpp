@@ -1,13 +1,15 @@
-#include "echoreplier.h"
 #include "qtquick2applicationviewer.h"
 #include "accountconfig.h"
-
-#include <iostream>
+#include "connection.h"
+#include "conversationmanager.h"
 
 #include <QStringList>
 #include <QtGui/QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+
+#include <iostream>
+
 
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
@@ -16,8 +18,14 @@ int main(int argc, char* argv[]) {
     ac.load();
     ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file on the first run
 
-    std::cout << "connecting jid " << ac.jid().toUtf8().constData() << std::endl;
-    EchoReplier replier(ac.jid(), ac.password());
+    Connection connection(ac);
+    ConversationManager conversationManager;
+
+    qRegisterMetaType<std::shared_ptr<Conversation> >("std::shared_ptr<Conversation>");
+    QObject::connect(&connection, SIGNAL(newConversation(std::shared_ptr<Conversation>)),
+                     &conversationManager, SLOT(handleNewConversation(std::shared_ptr<Conversation>)),
+                     Qt::DirectConnection);
+
 
     QQmlApplicationEngine engine;
 
