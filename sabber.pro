@@ -8,11 +8,11 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    echoreplier.cpp \
     accountconfig.cpp \
     connection.cpp \
     conversation.cpp \
-    conversationmanager.cpp
+    windowmanager.cpp \
+    conversationwindow.cpp
 
 # Installation path
 # target.path =
@@ -22,12 +22,15 @@ include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    echoreplier.h \
     accountconfig.h \
     connection.h \
     conversation.h \
-    conversationmanager.h
+    windowmanager.h \
+    conversationwindow.h
 
 LIBS += -lgloox
 
 CONFIG += c++11
+
+OTHER_FILES += \
+    qml/sabber/conversationwindow.qml

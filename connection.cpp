@@ -17,11 +17,14 @@ void Connection::run() {
     client->connect();
 }
 
+/**
+ * The Conversation must be initialized in this method otherwise the first
+ * message will be lost.
+ */
 void Connection::handleMessageSession(MessageSession *messageSession) {
     std::shared_ptr<Conversation> conversation(new Conversation(messageSession, [&]() {
         client->disposeMessageSession(messageSession);
     }));
     sessions.push_back(conversation);
-    newConversation(conversation);
-    messageSession->registerMessageHandler(conversation.get());
+    newConversation(conversation); // needs to use a blocking connection!
 }

@@ -1,14 +1,12 @@
 #include "qtquick2applicationviewer.h"
 #include "accountconfig.h"
 #include "connection.h"
-#include "conversationmanager.h"
+#include "windowmanager.h"
 
-#include <QStringList>
 #include <QtGui/QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQmlContext>
 
-#include <iostream>
+#include <memory>
 
 
 int main(int argc, char* argv[]) {
@@ -18,23 +16,18 @@ int main(int argc, char* argv[]) {
     ac.load();
     ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file on the first run
 
+    std::shared_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine());
+
+    WindowManager windowManager(engine);
     Connection connection(ac);
-    ConversationManager conversationManager;
 
     qRegisterMetaType<std::shared_ptr<Conversation> >("std::shared_ptr<Conversation>");
-    QObject::connect(&connection, SIGNAL(newConversation(std::shared_ptr<Conversation>)),
-                     &conversationManager, SLOT(handleNewConversation(std::shared_ptr<Conversation>)),
-                     Qt::DirectConnection);
+    QObject::connect(&connection, &Connection::newConversation,
+                     &windowManager, &WindowManager::newConversation,
+                     Qt::BlockingQueuedConnection);
 
 
-    QQmlApplicationEngine engine;
-
-    auto context = engine.rootContext();
-    QStringList log;
-    log << "foo" << "bar";
-    context->setContextProperty("log", log);
-
-    engine.load("qml/sabber/main.qml");
+    engine->load("qml/sabber/main.qml");
 
     return app.exec();
 }
