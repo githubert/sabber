@@ -11,7 +11,6 @@
 #include <QtCore>
 
 #include <memory>
-#include <vector>
 
 
 using namespace gloox;
@@ -26,11 +25,10 @@ class Connection : public QThread, public MessageSessionHandler {
     void handleMessageSession(MessageSession* session);
 
   signals:
-    void newConversation(std::shared_ptr<Conversation>);
+    void newConversation(Conversation*);
 
   private:
     const std::unique_ptr<Client> client;
-    std::vector<std::shared_ptr<Conversation>> sessions;
 };
 
 #endif // CONNECTION_H

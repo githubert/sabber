@@ -1,10 +1,13 @@
 #include "conversation.h"
 
+#include <iostream>
+
 Conversation::Conversation(MessageSession *messageSession, std::function<void()> dispose) : messageSession(messageSession), dispose(dispose) {
     messageSession->registerMessageHandler(this);
 }
 
 Conversation::~Conversation() {
+    std::cout << "disposing session" << std::endl;
     dispose();
 }
 

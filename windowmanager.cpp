@@ -3,9 +3,12 @@
 
 WindowManager::WindowManager(std::shared_ptr<QQmlEngine> engine) : engine(engine) {}
 
-void WindowManager::newConversation(std::shared_ptr<Conversation> conversation) {
+void WindowManager::newConversation(Conversation* conversation) {
     auto conversationWindow = new ConversationWindow(engine);
 
-    QObject::connect(conversation.get(), &Conversation::messageReceived,
+    QObject::connect(conversation, &Conversation::messageReceived,
                      conversationWindow->messageLogger());
+    QObject::connect(conversationWindow, &ConversationWindow::closed, [=]() {
+        delete conversation;
+    });
 }

@@ -18,6 +18,9 @@ class ConversationWindow : public QObject {
   public slots:
     void log(std::forward_list<QString> messages);
 
+  signals:
+    void closed();
+
   private:
     QObject* window;
 };

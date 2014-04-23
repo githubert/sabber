@@ -9,7 +9,6 @@ Connection::Connection(const AccountConfig& config) :
 }
 
 Connection::~Connection() {
-    sessions.clear();
     client->disconnect();
 }
 
@@ -22,9 +21,8 @@ void Connection::run() {
  * message will be lost.
  */
 void Connection::handleMessageSession(MessageSession *messageSession) {
-    std::shared_ptr<Conversation> conversation(new Conversation(messageSession, [&]() {
+    auto conversation = new Conversation(messageSession, [&]() {
         client->disposeMessageSession(messageSession);
-    }));
-    sessions.push_back(conversation);
+    });
     newConversation(conversation); // needs to use a blocking connection!
 }
