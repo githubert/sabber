@@ -24,7 +24,8 @@ void AccountConfig::load() {
             }, ACCOUNT_GROUP_NAME, name);
 }
 
-template<typename T, typename... Args> void AccountConfig::inGroup(T function, const QString& groupName, const Args&... groupNames) {
+template<typename T, typename P, typename... Args> void AccountConfig::inGroup(T function, const P& groupName,
+                                                                               const Args&... groupNames) {
     settings.beginGroup(groupName);
     inGroup(function, groupNames...);
     settings.endGroup();

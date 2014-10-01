@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     ac.load();
     ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file on the first run
 
-    std::shared_ptr<QQmlApplicationEngine> engine(new QQmlApplicationEngine());
+    auto engine = std::make_shared<QQmlApplicationEngine>();
 
     WindowManager windowManager(engine);
     Connection connection(ac);

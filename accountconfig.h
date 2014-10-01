@@ -25,7 +25,8 @@ class AccountConfig {
     QString _jid;
     QString _password;
 
-    template<typename T, typename... Args> void inGroup(T function, const QString& groupName, const Args&... groupNames);
+    template<typename T, typename P, typename... Args> void inGroup(T function, const P& groupName,
+                                                                    const Args&... groupNames);
     void inGroup(std::function<void()> function);
 };
 
