@@ -10,20 +10,20 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 include_directories(BEFORE ${QT_INCLUDES})
-
 include_directories(qtquick2applicationviewer)
+include_directories(src)
 
 configure_file(qml/sabber/main.qml qml/sabber/main.qml)
 configure_file(qml/sabber/conversationwindow.qml qml/sabber/conversationwindow.qml)
 
 set(SOURCE_FILES
     qtquick2applicationviewer/qtquick2applicationviewer.cpp
-    accountconfig.cpp
-    connection.cpp
-    conversation.cpp
-    conversationwindow.cpp
-    main.cpp
-    windowmanager.cpp)
+    src/accountconfig.cpp
+    src/connection.cpp
+    src/conversation.cpp
+    src/conversationwindow.cpp
+    src/main.cpp
+    src/windowmanager.cpp)
 
 add_executable(sabber ${SOURCE_FILES})
 
