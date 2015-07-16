@@ -6,6 +6,8 @@
 #include <QString>
 
 #include <forward_list>
+#include <functional>
+#include <memory>
 
 class ConversationWindow : public QObject {
     Q_OBJECT

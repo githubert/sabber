@@ -6,9 +6,6 @@
 #include <QtGui/QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <memory>
-
-
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
