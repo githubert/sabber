@@ -1,19 +1,19 @@
 #include "connection.h"
 
 Connection::Connection(const AccountConfig& config) :
-    client(std::unique_ptr<Client>(new Client(JID(config.jid().toUtf8().constData()),
-                                              config.password().toUtf8().constData()))) {
-    client->registerMessageSessionHandler(this, 0);
-    client->setResource("sabber");
-    this->start();
+  client(std::unique_ptr<Client>(new Client(JID(config.jid().toUtf8().constData()),
+                                            config.password().toUtf8().constData()))) {
+  client->registerMessageSessionHandler(this);
+  client->setResource("sabber");
+  this->start();
 }
 
 Connection::~Connection() {
-    client->disconnect();
+  client->disconnect();
 }
 
 void Connection::run() {
-    client->connect();
+  client->connect();
 }
 
 /**
@@ -21,8 +21,8 @@ void Connection::run() {
  * message will be lost.
  */
 void Connection::handleMessageSession(MessageSession *messageSession) {
-    auto conversation = new Conversation(messageSession, [&]() {
-        client->disposeMessageSession(messageSession);
-    });
-    newConversation(conversation); // needs to use a blocking connection!
+  auto conversation = new Conversation(messageSession, [=]() {
+    client->disposeMessageSession(messageSession);
+  });
+  newConversation(conversation); // needs to use a blocking connection!
 }

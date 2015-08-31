@@ -18,7 +18,10 @@ class WindowManager : public QObject {
     void newConversation(Conversation* conversation);
 
   private:
+    void cleanUp();
+
     std::shared_ptr<QQmlEngine> engine;
+    QMetaObject::Connection logging;
 };
 
 #endif // WINDOWMANAGER_H

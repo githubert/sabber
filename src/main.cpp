@@ -3,9 +3,6 @@
 #include "connection.h"
 #include "windowmanager.h"
 
-#include <QtGui/QGuiApplication>
-#include <QQmlApplicationEngine>
-
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
@@ -18,7 +15,7 @@ int main(int argc, char* argv[]) {
     WindowManager windowManager(engine);
     Connection connection(ac);
 
-    qRegisterMetaType<std::shared_ptr<Conversation> >("std::shared_ptr<Conversation>");
+    qRegisterMetaType<std::shared_ptr<Conversation>>("std::shared_ptr<Conversation>");
     QObject::connect(&connection, &Connection::newConversation,
                      &windowManager, &WindowManager::newConversation,
                      Qt::BlockingQueuedConnection);

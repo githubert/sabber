@@ -4,16 +4,18 @@
 #include <QObject>
 #include <QQmlEngine>
 #include <QString>
+#include <QtQuick>
 
 #include <forward_list>
 #include <functional>
 #include <memory>
 
 class ConversationWindow : public QObject {
-    Q_OBJECT
+  Q_OBJECT
 
   public:
     ConversationWindow(std::shared_ptr<QQmlEngine> engine);
+    bool eventFilter(QObject *object, QEvent *event);
     std::function<void(const QString&)> messageLogger();
 
   public slots:
@@ -23,7 +25,7 @@ class ConversationWindow : public QObject {
     void closed();
 
   private:
-    QObject* window;
+    std::unique_ptr<QQuickWindow> window;
 };
 
 #endif // CONVERSATIONWINDOW_H
