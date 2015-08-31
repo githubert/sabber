@@ -5,6 +5,8 @@ ConversationWindow::ConversationWindow(std::shared_ptr<QQmlEngine> engine) {
   QQmlComponent component(engine.get(), qmlFile);
   window = std::unique_ptr<QQuickWindow>(qobject_cast<QQuickWindow*>(component.create()));
   window->installEventFilter(this);
+
+  QObject::connect(window.get(), SIGNAL(send(QString)), this, SIGNAL(sendMessage(QString)));
 }
 
 void ConversationWindow::log(std::forward_list<QString> messages) {
@@ -23,4 +25,3 @@ bool ConversationWindow::eventFilter(QObject *object, QEvent *event) {
   }
   return QObject::eventFilter(object, event);
 }
-

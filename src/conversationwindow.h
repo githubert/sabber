@@ -22,6 +22,7 @@ class ConversationWindow : public QObject {
     void log(std::forward_list<QString> messages);
 
   signals:
+    void sendMessage(const QString& message);
     void closed();
 
   private:
