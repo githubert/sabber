@@ -1,6 +1,6 @@
-#ifndef SESSION_H
-#define SESSION_H
+#pragma once
 
+#include "chatmessage.h"
 #include "conversationwindow.h"
 
 #include <QtCore>
@@ -23,8 +23,7 @@ class Conversation : public QObject, public MessageHandler {
     void handleMessage(const Message &msg, MessageSession*);
 
   signals:
-    void messageReceived(const QString &message);
-    void messageLog(std::forward_list<QString> log);
+    void messageReceived(const ChatMessage &message);
 
   public slots:
     void sendMessage(const QString &message);
@@ -32,7 +31,4 @@ class Conversation : public QObject, public MessageHandler {
   private:
     MessageSession *messageSession;
     std::function<void()> dispose;
-    std::forward_list<QString> messages;
 };
-
-#endif // SESSION_H

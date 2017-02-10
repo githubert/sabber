@@ -11,9 +11,7 @@ Conversation::~Conversation() {
 }
 
 void Conversation::handleMessage(const Message &msg, MessageSession*) {
-  const QString text = QString::fromUtf8(msg.body().data());
-  messages.push_front(text);
-  messageReceived(text);
+  messageReceived(ChatMessage(msg));
 }
 
 void Conversation::sendMessage(const QString &message) {

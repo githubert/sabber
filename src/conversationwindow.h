@@ -5,9 +5,9 @@
 #include <QString>
 #include <QtQuick>
 
-#include <forward_list>
-#include <functional>
 #include <memory>
+
+#include "chatmessage.h"
 
 class ConversationWindow : public QObject {
   Q_OBJECT
@@ -15,10 +15,7 @@ class ConversationWindow : public QObject {
   public:
     ConversationWindow(std::shared_ptr<QQmlEngine> engine);
     bool eventFilter(QObject *object, QEvent *event);
-    std::function<void(const QString&)> messageLogger();
-
-  public slots:
-    void log(std::forward_list<QString> messages);
+    std::function<void(const ChatMessage&)> messageLogger();
 
   signals:
     void sendMessage(const QString& message);

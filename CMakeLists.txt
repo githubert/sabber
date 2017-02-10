@@ -24,6 +24,7 @@ configure_file(qml/sabber/conversationwindow.qml qml/sabber/conversationwindow.q
 set(SOURCE_FILES
     qtquick2applicationviewer/qtquick2applicationviewer.cpp
     src/accountconfig.cpp
+    src/chatmessage.cpp
     src/connection.cpp
     src/conversation.cpp
     src/conversationwindow.cpp

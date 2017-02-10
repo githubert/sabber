@@ -1,3 +1,4 @@
+import QtQuick 2.7
 import QtQuick.Window 2.2
 
 Window {
@@ -12,8 +13,8 @@ Window {
     id: logModel
   }
 
-  function log(message) {
-    logModel.append({msg: message})
+  function log(author, message) {
+    logModel.append({author: author, msg: message})
   }
 
   signal send(string msg)
@@ -27,7 +28,7 @@ Window {
     }
     visible: true
     delegate: Text {
-      text: msg
+      text: '<b>' + author + ':</b> ' + msg
     }
   }
 
@@ -46,7 +47,7 @@ Window {
     Keys.onReturnPressed: {
       if(input.text.length > 0) {
         send(input.text);
-        logModel.append({msg: input.text});
+        logModel.append({author: "I", msg: input.text});
         input.text=""
       }
     }

@@ -2,19 +2,18 @@
 
 ConversationWindow::ConversationWindow(std::shared_ptr<QQmlEngine> engine) {
   QQmlComponent component(engine.get(), QUrl("qrc:/qml/sabber/conversationwindow.qml"));
-  window = std::unique_ptr<QQuickWindow>(qobject_cast<QQuickWindow*>(component.create()));
-  window->installEventFilter(this);
-
-  QObject::connect(window.get(), SIGNAL(send(QString)), this, SIGNAL(sendMessage(QString)));
+  if (component.isReady()) {
+    window = std::unique_ptr<QQuickWindow>(qobject_cast<QQuickWindow *>(component.create()));
+    window->installEventFilter(this);
+    QObject::connect(window.get(), SIGNAL(send(QString)), this, SIGNAL(sendMessage(QString)));
+  } else {
+    qWarning() << component.errorString();
+  }
 }
 
-void ConversationWindow::log(std::forward_list<QString> messages) {
-  std::for_each(messages.begin(), messages.end(), messageLogger());
-}
-
-std::function<void(const QString&)> ConversationWindow::messageLogger() {
-  return [=](const QString& message) {
-      QMetaObject::invokeMethod(window.get(), "log", Q_ARG(QVariant, message));
+std::function<void(const ChatMessage&)> ConversationWindow::messageLogger() {
+  return [this](const ChatMessage& message) {
+      QMetaObject::invokeMethod(window.get(), "log", Q_ARG(QVariant, message.author()), Q_ARG(QVariant, message.text()));
   };
 }
 
