@@ -1,9 +1,9 @@
 #include "conversationwindow.h"
 
-ConversationWindow::ConversationWindow(std::shared_ptr<QQmlEngine> engine) {
-  QQmlComponent component(engine.get(), QUrl("qrc:/qml/sabber/conversationwindow.qml"));
+ConversationWindow::ConversationWindow(QQmlEngine& engine) {
+  QQmlComponent component(&engine, QUrl("qrc:/qml/sabber/conversationwindow.qml"));
   if (component.isReady()) {
-    window = std::unique_ptr<QQuickWindow>(qobject_cast<QQuickWindow *>(component.create()));
+    window = std::unique_ptr<QObject>(component.create());
     window->installEventFilter(this);
     QObject::connect(window.get(), SIGNAL(send(QString)), this, SIGNAL(sendMessage(QString)));
   } else {
@@ -22,7 +22,7 @@ std::function<void(const ChatMessage&)> ConversationWindow::messageLogger() {
 
 bool ConversationWindow::eventFilter(QObject *object, QEvent *event) {
   if (event->type() == QEvent::Close) {
-      closed();
+    closed();
   }
   return QObject::eventFilter(object, event);
 }

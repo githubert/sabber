@@ -13,8 +13,8 @@ class ConversationWindow : public QObject {
   Q_OBJECT
 
   public:
-    ConversationWindow(std::shared_ptr<QQmlEngine> engine);
-    bool eventFilter(QObject *object, QEvent *event);
+    ConversationWindow(QQmlEngine& engine);
+    bool eventFilter(QObject *object, QEvent *event) override;
     std::function<void(const ChatMessage&)> messageLogger();
 
   signals:
@@ -22,5 +22,5 @@ class ConversationWindow : public QObject {
     void closed();
 
   private:
-    std::unique_ptr<QQuickWindow> window;
+    std::unique_ptr<QObject> window;
 };

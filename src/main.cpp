@@ -11,8 +11,7 @@ int main(int argc, char* argv[]) {
   ac.load();
   ac.store(); // just to end up with an empty .config/Sabber/sabber.conf file on the first run
 
-  auto engine = std::make_shared<QQmlApplicationEngine>();
-
+  QQmlApplicationEngine engine;
   WindowManager windowManager(engine);
   Connection connection(ac);
 
@@ -22,6 +21,7 @@ int main(int argc, char* argv[]) {
                    Qt::BlockingQueuedConnection);
 
   MainWindow mainWindow(engine);
+  QObject::connect(&mainWindow, &MainWindow::closed, [&app]{app.quit();});
 
   return app.exec();
 }

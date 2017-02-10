@@ -1,5 +1,4 @@
-#ifndef WINDOWMANAGER_H
-#define WINDOWMANAGER_H
+#pragma once
 
 #include <conversation.h>
 
@@ -12,7 +11,7 @@ class WindowManager : public QObject {
     Q_OBJECT
 
   public:
-    WindowManager(std::shared_ptr<QQmlEngine> engine);
+    WindowManager(QQmlEngine& engine);
 
   public slots:
     void newConversation(Conversation* conversation);
@@ -20,8 +19,7 @@ class WindowManager : public QObject {
   private:
     void cleanUp();
 
-    std::shared_ptr<QQmlEngine> engine;
+    QQmlEngine& engine;
     QMetaObject::Connection logging;
 };
 
-#endif // WINDOWMANAGER_H
