@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.6.2)
 project(sabber)
 
-add_definitions("-std=c++11")
+add_definitions("-std=c++11 -Wall")
+
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -fPIE -pie -fstack-protector-strong -D_FORTIFY_SOURCE=2")
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -28,6 +30,7 @@ set(SOURCE_FILES
     src/main.cpp
     src/windowmanager.cpp)
 
+set(CMAKE_SHARED_LINKER_FLAGS  "-Wl,-z,relro,-z,now -pie")
 add_executable(sabber ${SOURCE_FILES} ${Resources})
 
 target_link_libraries(sabber Qt5::Quick gloox)
