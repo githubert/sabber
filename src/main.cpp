@@ -1,4 +1,3 @@
-#include "qtquick2applicationviewer.h"
 #include "accountconfig.h"
 #include "connection.h"
 #include "mainwindow.h"

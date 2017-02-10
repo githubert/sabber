@@ -14,7 +14,6 @@ find_package(Qt5 COMPONENTS Core Quick REQUIRED)
 
 qt5_add_resources(Resources sabber.qrc)
 
-include_directories(BEFORE ${QT_INCLUDES})
 include_directories(qtquick2applicationviewer)
 include_directories(src)
 
@@ -22,7 +21,6 @@ configure_file(qml/sabber/main.qml qml/sabber/main.qml)
 configure_file(qml/sabber/conversationwindow.qml qml/sabber/conversationwindow.qml)
 
 set(SOURCE_FILES
-    qtquick2applicationviewer/qtquick2applicationviewer.cpp
     src/accountconfig.cpp
     src/chatmessage.cpp
     src/connection.cpp
