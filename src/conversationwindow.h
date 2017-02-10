@@ -1,5 +1,4 @@
-#ifndef CONVERSATIONWINDOW_H
-#define CONVERSATIONWINDOW_H
+#pragma once
 
 #include <QObject>
 #include <QQmlEngine>
@@ -28,5 +27,3 @@ class ConversationWindow : public QObject {
   private:
     std::unique_ptr<QQuickWindow> window;
 };
-
-#endif // CONVERSATIONWINDOW_H

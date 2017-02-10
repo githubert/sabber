@@ -28,6 +28,7 @@ set(SOURCE_FILES
     src/conversation.cpp
     src/conversationwindow.cpp
     src/main.cpp
+    src/mainwindow.cpp
     src/windowmanager.cpp)
 
 set(CMAKE_SHARED_LINKER_FLAGS  "-Wl,-z,relro,-z,now -pie")

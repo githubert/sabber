@@ -1,7 +1,7 @@
 #include "conversationwindow.h"
 
 ConversationWindow::ConversationWindow(std::shared_ptr<QQmlEngine> engine) {
-  QQmlComponent component(engine.get(), QUrl("qml/sabber/conversationwindow.qml"));
+  QQmlComponent component(engine.get(), QUrl("qrc:/qml/sabber/conversationwindow.qml"));
   window = std::unique_ptr<QQuickWindow>(qobject_cast<QQuickWindow*>(component.create()));
   window->installEventFilter(this);
 
