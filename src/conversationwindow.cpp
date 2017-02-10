@@ -13,7 +13,10 @@ ConversationWindow::ConversationWindow(std::shared_ptr<QQmlEngine> engine) {
 
 std::function<void(const ChatMessage&)> ConversationWindow::messageLogger() {
   return [this](const ChatMessage& message) {
-      QMetaObject::invokeMethod(window.get(), "log", Q_ARG(QVariant, message.author()), Q_ARG(QVariant, message.text()));
+      QMetaObject::invokeMethod(window.get(), "log",
+                                Q_ARG(QVariant, message.author()),
+                                Q_ARG(QVariant, message.text().toHtmlEscaped())); // otherwise we would render html in
+                                                                                  // incoming messages
   };
 }
 
