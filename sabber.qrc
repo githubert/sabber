@@ -1,0 +1,6 @@
+<RCC>
+    <qresource>
+        <file>qml/sabber/conversationwindow.qml</file>
+        <file>qml/sabber/main.qml</file>
+    </qresource>
+</RCC>

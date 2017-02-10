@@ -20,8 +20,12 @@ int main(int argc, char* argv[]) {
                      &windowManager, &WindowManager::newConversation,
                      Qt::BlockingQueuedConnection);
 
-
-    engine->load("qml/sabber/main.qml");
+    QQmlComponent component(engine.get(), QUrl("qrc:/qml/sabber/main.qml"));
+    if (component.isReady()) {
+        component.create();
+    } else {
+        qWarning() << component.errorString();
+    }
 
     return app.exec();
 }

@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8.11)
+cmake_minimum_required(VERSION 3.6.2)
 project(sabber)
 
-ADD_DEFINITIONS("-std=c++11")
+add_definitions("-std=c++11")
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -9,6 +9,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+
+qt5_add_resources(Resources sabber.qrc)
+
 include_directories(BEFORE ${QT_INCLUDES})
 include_directories(qtquick2applicationviewer)
 include_directories(src)
@@ -25,6 +28,6 @@ set(SOURCE_FILES
     src/main.cpp
     src/windowmanager.cpp)
 
-add_executable(sabber ${SOURCE_FILES})
+add_executable(sabber ${SOURCE_FILES} ${Resources})
 
 target_link_libraries(sabber Qt5::Quick gloox)
