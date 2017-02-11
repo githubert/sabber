@@ -4,6 +4,7 @@ Connection::Connection(const AccountConfig& config) :
   client(std::make_unique<Client>(JID(config.jid().toUtf8().constData()), config.password().toUtf8().constData())) {
   client->registerMessageSessionHandler(this);
   client->setResource("sabber");
+  client->setTls(TLSPolicy::TLSRequired);
   this->start();
 }
 
