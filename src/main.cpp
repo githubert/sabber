@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
   WindowManager windowManager(engine);
   Connection connection(ac);
 
-  qRegisterMetaType<std::shared_ptr<Conversation>>("std::shared_ptr<Conversation>");
+  qRegisterMetaType<std::shared_ptr<Conversation>>("std::unique_ptr<Conversation>");
   QObject::connect(&connection, &Connection::newConversation,
                    &windowManager, &WindowManager::newConversation,
                    Qt::BlockingQueuedConnection);

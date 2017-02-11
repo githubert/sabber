@@ -2,19 +2,19 @@
 
 WindowManager::WindowManager(QQmlEngine& engine) : engine(engine) {}
 
-void WindowManager::newConversation(Conversation* conversation) {
-  auto conversationWindow = new ConversationWindow(engine);
+void WindowManager::newConversation(std::shared_ptr<Conversation> conversation) {
+  const auto conversationWindow = new ConversationWindow(engine);
 
-  auto loggingConnection = QObject::connect(conversation, &Conversation::messageReceived,
+  auto loggingConnection = QObject::connect(conversation.get(), &Conversation::messageReceived,
                                             conversationWindow->messageLogger());
   auto sendConnection = QObject::connect(conversationWindow, &ConversationWindow::sendMessage,
-                                        [=](const QString& message) {
+                                        [conversation](const QString& message) {
                                           conversation->sendMessage(message);
                                         });
   QObject::connect(conversationWindow, &ConversationWindow::closed, [=]() {
     QObject::disconnect(loggingConnection);
     QObject::disconnect(sendConnection);
     conversationWindow->deleteLater();
-    delete conversation;
+    conversation.get(); // we just want to capture the shared_ptr
   });
 }

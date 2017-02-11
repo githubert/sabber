@@ -1,8 +1,7 @@
 #include "connection.h"
 
 Connection::Connection(const AccountConfig& config) :
-  client(std::unique_ptr<Client>(new Client(JID(config.jid().toUtf8().constData()),
-                                            config.password().toUtf8().constData()))) {
+  client(std::make_unique<Client>(JID(config.jid().toUtf8().constData()), config.password().toUtf8().constData())) {
   client->registerMessageSessionHandler(this);
   client->setResource("sabber");
   this->start();
@@ -21,7 +20,7 @@ void Connection::run() {
  * message will be lost.
  */
 void Connection::handleMessageSession(MessageSession *messageSession) {
-  auto conversation = new Conversation(messageSession, [=]() {
+  auto conversation = std::make_shared<Conversation>(messageSession, [=]() {
     client->disposeMessageSession(messageSession);
   });
   newConversation(conversation); // needs to use a blocking connection!

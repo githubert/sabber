@@ -25,7 +25,7 @@ class Connection : public QThread, public MessageSessionHandler {
     void handleMessageSession(MessageSession* session);
 
   signals:
-    void newConversation(Conversation*);
+    void newConversation(std::shared_ptr<Conversation>);
 
   private:
     const std::unique_ptr<Client> client;

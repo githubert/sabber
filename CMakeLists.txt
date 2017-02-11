@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.6.2)
 project(sabber)
 
-add_definitions("-std=c++11 -Wall")
+add_definitions("-Wall")
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -fPIE -pie -fstack-protector-strong -D_FORTIFY_SOURCE=2")
 

@@ -14,12 +14,9 @@ class WindowManager : public QObject {
     WindowManager(QQmlEngine& engine);
 
   public slots:
-    void newConversation(Conversation* conversation);
+    void newConversation(std::shared_ptr<Conversation> conversation);
 
   private:
-    void cleanUp();
-
     QQmlEngine& engine;
-    QMetaObject::Connection logging;
 };
 
